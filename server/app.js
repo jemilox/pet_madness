@@ -3,19 +3,39 @@ var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded( {extended: false});
-var portDecision = process.env.PORT || 3000;
-var pg = require('pg');
-var connectionString = 'postgress://localhost:5432/8_bit_restaurant';
+var mongoose = require('mongoose');
 
-var count = 0;
+app.use(bodyParser.json());
+//connect to my db
 
-app.listen( portDecision, function () {
-  console.log("3000 is up!");
-});//end server up
+//routers
+//var petRouter = require('../routers/petRouter');
 
-app.get('/', urlencodedParser, function (req, res) {
+var mongoURI = "mongodb://localhost:27017/pets";
+var MongoDB = mongoose.connect(mongoURI);
+//
+// MongoDB.on('error', function () {
+//   console.log('mongodb connection err:', err);
+// });
+//
+// MongoDB.once('open', function () {
+//   console.log('mongodb connection open!');
+// });
+
+//use routers, if /pet, go to petRouter
+//app.use('/pet', petRouter);
+
+
+app.get('/', function (req, res) {
   console.log('base url hit');
   res.sendFile(path.resolve('public/index.html'));
 });
 
 app.use(express.static('public'));
+
+
+
+var server = app.listen('3000', function () {
+  var port = server.address().port;
+  console.log('Port up');
+});
