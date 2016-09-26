@@ -9,6 +9,7 @@ app.use(bodyParser.json());
 //connect to my db
 
 //routers
+var Pet = require('../models/pet');
 //var petRouter = require('../routers/petRouter');
 
 var mongoURI = "mongodb://localhost:27017/pets";
@@ -38,4 +39,34 @@ app.use(express.static('public'));
 var server = app.listen('3000', function () {
   var port = server.address().port;
   console.log('Port up');
+});
+
+app.post('/', function (req, res) {
+  console.log('in / post');
+  console.log('req.body', req.body);
+  var sendData = req.body;
+  var newPet = new Pet({
+    name: sendData.name,
+    animal: sendData.animal,
+    age: sendData.age,
+    imageurl: sendData.imageUrl
+  });
+  newPet.save(function (err) {
+    if(err){
+      console.log('error occured:', err);
+      res.sendStatus(500);
+    }else{
+      console.log('assignment saved successfully!');
+      res.sendStatus(201);
+    }
+  });
+
+});
+
+app.get('/all', function (req, res) {
+  console.log('in /all');
+  Pet.find({}, function (err, petResults) {
+    console.log('petResults', petResults);
+    res.send(petResults);
+  });
 });

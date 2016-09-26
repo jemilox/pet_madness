@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="myApp">
   <head>
     <meta charset="utf-8">
     <title></title>
@@ -7,10 +7,17 @@
     <script src="/vendors/angular-route.min.js"></script>
     <script src="scripts/script.js"></script>
     <script src="/scripts/controllers/homeController.js"></script>
+    <script src="/scripts/controllers/addPet.js"></script>
+    <script src="/scripts/controllers/mew.js"></script>
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <h1>Welcome to Pet Madness!</h1>
+    <ul>
+      <li><a href = "#home">Home</a></li>
+      <li><a href = "#addPet">Add Pet</a></li>
+      <li><a href = "#mew">Show Pets</a></li>
+    <div ng-view></div>
 
 
   </body>
